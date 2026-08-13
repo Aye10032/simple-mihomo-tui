@@ -5,30 +5,28 @@
   "module": "src/index.tsx",
   "type": "module",
   "bin": {
-    "mihomo-tui": "src/index.tsx"
+    "mihomo-tui": "bin/mihomo-tui.cjs"
   },
   "files": [
-    "src",
-    "config.dev.example.json",
+    "bin",
     "README.md"
   ],
   "scripts": {
     "start": "bun run src/index.tsx",
     "dev": "bun run --watch src/index.tsx --config ./config.dev.json",
+    "build": "bun run scripts/build.ts",
     "test": "bun test",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/react": "^19",
-    "typescript": "^5"
-  },
-  "dependencies": {
     "@opentui/core": "^0.5.1",
     "@opentui/react": "^0.5.1",
-    "react": "^19.2.6"
+    "react": "^19.2.6",
+    "typescript": "^5"
   },
   "engines": {
-    "bun": ">=1.2.0"
+    "node": ">=20"
   }
 }

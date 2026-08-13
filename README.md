@@ -10,12 +10,22 @@
 
 ## 安装与运行
 
-需要 [Bun](https://bun.sh/) 和一个已经开启 `external-controller` 的 Mihomo 实例。
+最终用户不需要安装 Bun。推荐直接从 [GitHub Releases](https://github.com/Aye10032/simple-mihomo-tui/releases) 下载与系统对应的可执行文件，赋予执行权限后放入 `PATH`：
 
 ```bash
-npm install -g simple-mihomo-tui
+chmod +x mihomo-tui-linux-x64
+sudo install mihomo-tui-linux-x64 /usr/local/bin/mihomo-tui
 mihomo-tui
 ```
+
+也可以从 GitHub 通过 npm 调试安装；这种方式仅要求 Node.js 20+，首次运行会下载并校验对应版本的 standalone executable：
+
+```bash
+npm install -g --allow-git=all github:Aye10032/simple-mihomo-tui#main
+mihomo-tui
+```
+
+> npm 12 默认禁用 Git 依赖，所以从 GitHub 安装时需要显式传入 `--allow-git=all`。正式发布到 npm registry 后不需要此参数。
 
 首次运行会创建用户配置文件，并使用权限 `0600` 保存：
 
@@ -32,11 +42,11 @@ mihomo-tui --config /path/to/config.json
 MIHOMO_TUI_CONFIG=/path/to/config.json mihomo-tui
 ```
 
-不会在 `npm install` 阶段修改 Home 目录；配置会在第一次运行 `mihomo-tui` 时创建。
+不会在 `npm install` 阶段修改 Home 目录；CLI 二进制和配置都在第一次运行 `mihomo-tui` 时初始化。下载的二进制会缓存在系统用户缓存目录中。
 
 ## 本地开发
 
-开发模式与用户配置完全分开：
+开发与构建阶段需要 [Bun](https://bun.sh/)，并与用户配置完全分开：
 
 ```bash
 bun install
@@ -45,6 +55,14 @@ bun dev
 ```
 
 `bun dev` 固定读取仓库中的 `config.dev.json`。该文件已加入 `.gitignore`，不会误提交 Mihomo 密钥。`bun start` 则和正式 CLI 一样读取用户配置。
+
+构建当前或指定平台的独立可执行文件：
+
+```bash
+bun run build bun-linux-x64-baseline dist/mihomo-tui-linux-x64
+```
+
+推送 `v*` tag 后，GitHub Actions 会构建 Linux、macOS、Windows 的 x64/arm64 二进制并创建带 SHA-256 校验文件的 Release。
 
 配置字段：
 
