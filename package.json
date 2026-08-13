@@ -1,6 +1,6 @@
 {
   "name": "simple-mihomo-tui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A lightweight terminal UI for managing Mihomo proxy providers and nodes",
   "module": "src/index.tsx",
   "type": "module",
