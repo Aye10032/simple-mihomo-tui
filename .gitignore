@@ -22,6 +22,9 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .env.production.local
 .env.local
 
+# local Mihomo credentials used by `bun dev`
+config.dev.json
+
 # caches
 .eslintcache
 .cache
